@@ -3,7 +3,7 @@ const path = require("path");
 
 async function addRepo(filePath) {
   const repoPath = path.resolve(process.cwd(), ".repoGit");
-  const stagingPath = path.join(repoPath, "stage");
+  const stagingPath = path.join(repoPath, "staged");
 
   try {
     await fs.mkdir(stagingPath, { recursive: true });

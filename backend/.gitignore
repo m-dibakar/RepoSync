@@ -25,3 +25,8 @@ Thumbs.db
 
 # Coverage
 coverage/
+
+#miscelleneous
+hello.txt
+.repoGit
+AWS_Bucket_Policy.txt
