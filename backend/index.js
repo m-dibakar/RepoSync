@@ -39,7 +39,7 @@ yargs(hideBin(process.argv))
   .command("push", "Push commits to S3", {}, pushRepo)
   .command("pull", "Pull commits from S3", {}, pullRepo)
   .command(
-    "revert <commitID",
+    "revert <commitID>",
     "Revert to a specific commit",
     (yargs) => {
       yargs.positional("commitID", {
@@ -47,7 +47,9 @@ yargs(hideBin(process.argv))
         type: "string",
       });
     },
-    revertRepo,
+    (argv) => {
+      revertRepo(argv.commitID);
+    },
   )
   .demandCommand(1, "You need to enter atleast one command")
   .help().argv;
