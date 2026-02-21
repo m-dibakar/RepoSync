@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const http = require("http");
 const { Server } = require("socket.io");
+const { mainRouter } = require("./routes/main.router");
 // command line requirements
 const yargs = require("yargs");
 const { hideBin } = require("yargs/helpers");
@@ -86,10 +87,7 @@ function startServer() {
 
   app.use(cors({ origin: "*" }));
 
-  app.get("/", (req, res) => {
-    res.send("Hello");
-    console.log("root path called");
-  });
+  app.use("/", mainRouter);
 
   const httpServer = http.createServer(app);
   const io = new Server(httpServer, {
