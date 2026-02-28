@@ -20,17 +20,17 @@ const RepositorySchema = new Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    reference: "User",
+    ref: "User",
     required: true,
   },
   issues: [
     {
       type: Schema.Types.ObjectId,
-      reference: "Issue",
+      ref: "Issue",
     },
   ],
 });
 
 const Repository = mongoose.model("Repository", RepositorySchema);
 
-export default Repository;
+module.exports = Repository;

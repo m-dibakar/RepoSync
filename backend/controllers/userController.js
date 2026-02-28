@@ -113,7 +113,7 @@ async function getUserProfile(req, res) {
     }
     res.send(user);
   } catch (err) {
-    console.error("Error during fetching users: ", err.message);
+    console.error("Error during fetching User Profile: ", err.message);
     res.status(500).send("Server error!");
   }
 }
@@ -165,7 +165,7 @@ async function deleteUserProfile(req, res) {
     }
     res.json({ message: "User Profile Deleted" });
   } catch (err) {
-    console.error("Error during updating : ", err.message);
+    console.error("Error during deleting : ", err.message);
     res.status(500).send("Server error!");
   }
 }
