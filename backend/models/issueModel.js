@@ -15,7 +15,7 @@ const IssueSchema = new Schema({
     enum: ["open", "closed"],
     default: "open",
   },
-  repositories: {
+  repository: {
     type: Schema.Types.ObjectId,
     ref: "Repository",
     required: true,

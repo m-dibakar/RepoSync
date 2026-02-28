@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Repository = require("../models/repoModel");
-const User = require("../models/userModel");
-const Issue = require("../models/issueModel");
 
 async function createRepository(req, res) {
   const { owner, name, issues, content, description, visibility } = req.body;
@@ -54,7 +52,7 @@ async function fetchRepositoryById(req, res) {
       .populate("issues");
 
     if (!repository) {
-      return res.status(404).json({ message: "Repository not found!" });
+      return res.status(404).json({ error: "Repository not found!" });
     }
 
     res.json(repository);
