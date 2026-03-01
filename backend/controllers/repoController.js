@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Repository = require("../models/repoModel");
+const User = require("../models/userModel");
+const Issue = require("../models/issueModel");
 
 async function createRepository(req, res) {
   const { owner, name, issues, content, description, visibility } = req.body;
@@ -69,6 +71,10 @@ async function fetchRepositoryByName(req, res) {
       .populate("owner")
       .populate("issues");
 
+    if (!repository) {
+      return res.status(404).json({ error: "Repository not found!" });
+    }
+
     res.json(repository);
   } catch (err) {
     console.error("Error during fetching repository : ", err.message);
@@ -77,13 +83,10 @@ async function fetchRepositoryByName(req, res) {
 }
 
 async function fetchRepositoriesForCurrentUser(req, res) {
-  const userId = req.user;
+  const userId = req.params.userID;
   try {
     const repositories = await Repository.find({ owner: userId });
-    if (!repositories || repositories.length == 0) {
-      return res.status(404).json({ error: "User repositories not found" });
-    }
-    res.json({ message: "Repositories found!" }, repositories);
+    res.json(repositories); // returns empty array if no repos, no 404
   } catch (err) {
     console.error("Error during fetching user repositories : ", err.message);
     res.status(500).send("Server error!");
@@ -99,14 +102,14 @@ async function updateRepositoryById(req, res) {
     if (!repository) {
       return res.status(404).json({ error: "Repository not found" });
     }
-    repository.content.push(content); // updating the new content
-    repository.description = description; // updating the new description
+    repository.content.push(content);
+    repository.description = description;
 
-    const updateRepository = repository.save();
+    const updatedRepository = await repository.save();
 
     res.json({
       message: "Repository updated successfully",
-      repository: updateRepository,
+      repository: updatedRepository,
     });
   } catch (err) {
     console.error("Error during updating the repository : ", err.message);
@@ -122,13 +125,13 @@ async function toggleVisibilityById(req, res) {
     if (!repository) {
       return res.status(404).json({ error: "Repository not found" });
     }
-    repository.visibility = !repository.visibility; // toggling the boolean value
+    repository.visibility = !repository.visibility;
 
-    const updateRepository = repository.save();
+    const updatedRepository = await repository.save();
 
     res.json({
       message: "Repository visibility toggled successfully",
-      repository: updateRepository,
+      repository: updatedRepository,
     });
   } catch (err) {
     console.error("Error during toggling the visibility : ", err.message);
