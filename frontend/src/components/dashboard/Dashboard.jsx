@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     const fetchRepositories = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/repo/user/${userId}`);
+        const response = await fetch(`http://13.203.213.79:3000/repo/user/${userId}`);
         const data = await response.json();
         setRepositories(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
     const fetchSuggestedRepositories = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/repo/all`);
+        const response = await fetch(`http://13.203.213.79:3000/repo/all`);
         const data = await response.json();
         setSuggestedRepositories(Array.isArray(data) ? data : []);
       } catch (err) {
