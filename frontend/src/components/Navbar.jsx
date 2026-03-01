@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "/home/dee/Code Playground/devHub/RepoSync/frontend/src/components/Navbar.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
